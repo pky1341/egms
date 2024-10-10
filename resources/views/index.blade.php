@@ -100,7 +100,7 @@
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, nobis nesciunt atque
                                 perferendis, ipsa doloremque deserunt cum qui.</p>
                             <div class="banner-btn">
-                                <a href="#" class="btn btn-common">Get Ticket</a>
+                                <a href="{{ route('create-event') }}" class="btn btn-common">create event</a>
                             </div>
                         </div>
                     </div>
