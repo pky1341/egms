@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!-- Responsive Style -->
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
 
 </head>
 
@@ -112,8 +113,6 @@
     </header>
 
     @yield('content')
-
-    
 
     <!-- Contact text Start -->
     <section id="contact-text">
@@ -218,6 +217,8 @@
     <script src="assets/js/nivo-lightbox.js"></script>
     <script src="assets/js/video.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

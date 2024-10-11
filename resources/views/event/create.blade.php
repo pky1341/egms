@@ -13,11 +13,12 @@
                         <div class="form-wrapper">
                             <form role="form" method="post" id="eventForm" name="event-form" data-toggle="validator"
                                 action="{{ route('store.event') }}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="eventType">Event Type</label>
-                                            <select class="form-control" id="eventType" name="eventType" required
+                                            <select class="form-control" id="eventType" name="event_type" required
                                                 data-error="Please select event type">
                                                 <option value="" selected disabled>Select Event Type</option>
                                                 <option value="home_innogration">Home Innogration</option>
@@ -30,82 +31,52 @@
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('event_type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="eventName">Event Name</label>
-                                            <input type="text" class="form-control" id="eventName" name="eventName"
+                                            <input type="text" class="form-control" id="eventName" name="event_name"
                                                 placeholder="Event Name" required data-error="Please enter event name">
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('event_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="eventDate">Event Date</label>
-                                            <input type="date" class="form-control" id="eventDate" name="eventDate"
+                                            <input type="date" class="form-control" id="eventDate" name="event_date"
                                                 required data-error="Please select event date">
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('eventDate')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="eventTime">Event Time</label>
-                                            <input type="time" class="form-control" id="eventTime" name="eventTime"
+                                            <input type="time" class="form-control" id="eventTime" name="event_time"
                                                 required data-error="Please select event time">
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('eventTime')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-12 form-line">
                                         <div class="form-group">
                                             <label for="eventPlace">Event Place</label>
-                                            <input type="text" class="form-control" id="eventPlace" name="eventPlace"
+                                            <input type="text" class="form-control" id="eventPlace" name="event_place"
                                                 placeholder="Event Place" required data-error="Please enter event place">
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('eventPlace')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="guestCount">Number of guest</label>
-                                            <input type="number" class="form-control" id="guestCount" name="guestCount"
+                                            <input type="number" class="form-control" id="guestCount" name="guest_count"
                                                 placeholder="Number of Guests" required
                                                 data-error="Please enter number of guests">
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('guestCount')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6 form-line">
                                         <div class="form-group">
                                             <label for="guestPartition">Select Partition</label>
-                                            <select class="form-control" id="guestPartition" name="guestPartition" required
+                                            <select class="form-control" id="guestPartition" name="guest_partition" required
                                                 data-error="Please select guest partition">
                                                 <option value="" selected disabled>Select Guest Partition</option>
                                                 <option value="single">Single Guest</option>
@@ -114,24 +85,14 @@
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('guestPartition')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="eventDetails">Additional Details</label>
-                                            <textarea class="form-control" rows="4" id="eventDetails" name="eventDetails"
+                                            <textarea class="form-control" rows="4" id="eventDetails" name="event_details"
                                                 placeholder="Additional Important Details" required data-error="Please provide event details"></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div>
-                                        @error('eventDetails')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                         <div class="form-submit">
                                             <button type="submit" class="btn btn-common" id="form-submit">
                                                 <i class="fa fa-calendar-plus" aria-hidden="true"></i> Create Event
@@ -148,3 +109,34 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $("#eventForm").on("submit", function(event) {
+                if (event.isDefaultPrevented()) {
+                    $("#msgSubmit").removeClass("hidden").html(
+                        "Form submission failed! Please check the errors.");
+                } else {
+                    event.preventDefault();
+                    var form = $(this);
+                    $.ajax({
+                        url: "{{ route('store.event') }}",
+                        type: "POST",
+                        data: form.serialize(),
+                        success: function(response) {
+                            toastr.success('Event created successfully!')
+                            // $("#msgSubmit").removeClass("hidden").html("Event created successfully!");
+                            form.trigger("reset");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            var errors = jqXHR.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                toastr.error(value);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endpush
